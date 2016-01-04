@@ -1,0 +1,123 @@
+$confirm-box-width: 500px;
+$confirm-box-height: 350px;
+$system-default-blue: #2dc3e8;
+$animation-time: 0.5s;
+
+.confirm-box-flyIn {
+  .confirm-box {
+    animation: flyIn $animation-time ease-out forwards;
+  }
+  .background {
+    animation: fadeIn $animation-time steps(4) forwards;
+  }
+  @at-root {
+    @keyframes flyIn {
+      0% {
+        transform: translate3d(calc(-100vw - 50%), -50%, 0);
+      }
+      65% {
+        transform: translate3d(-10%, -50%, 0);
+      }
+      100% {
+        transform: translate3d(-50%, -50%, 0);
+      }
+    }
+    @keyframes fadeIn {
+      0% {
+        opacity: 0
+      }
+      100% {
+        opacity: 0.5
+      }
+    }
+  }
+}
+.confirm-box-flyOut {
+  .confirm-box {
+    animation: flyOut $animation-time forwards;
+  }
+  .background {
+    animation: fadeOut $animation-time steps(4) forwards;
+  }
+  @at-root {
+    @keyframes flyOut {
+      0% {
+        transform: translate3d(-50%, -50%, 0);
+      }
+      50% {
+        transform: translate3d(-90%, -50%, 0) scale3d(1.1, 1.1, 1);
+      }
+      100% {
+        transform: translate3d(calc(100vw + 50%), -50%, 0);
+      }
+    }
+    @keyframes fadeOut {
+      0% {
+        opacity: 0.5
+      }
+      50%, 100% {
+        opacity: 0
+      }
+    }
+  }
+}
+
+.confirm-box {
+  $text-color: lighten(#000, 30%);
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: $confirm-box-width;
+  z-index: 1024;
+  background-color: #fff;
+  box-shadow: 1px 1px 10px 1px rgba(0,0,0,.5);
+
+  .confirm-title {
+    color: $text-color;
+    padding: 10px 15px;
+    font-size: 1.4rem;
+    border-bottom: 3px solid $system-default-blue;
+  }
+  .confirm-content {
+    $content-height: 200px;
+    height: $content-height;
+    line-height: $content-height;
+    text-align: center;
+    font-size: 1.2rem;
+    color: $text-color;
+    border-bottom: 1px solid #ccc;
+  }
+  .confirm-option {
+    padding: 20px;
+    text-align: right;
+    font-size: 1.2rem;
+
+    button {
+      padding: 6px 30px;
+      color: #737b86;
+      cursor: pointer;
+      border: 1px solid #ccc;
+      background-color: #fff;
+      border-radius: 4px;
+      outline: 0;
+
+      &:nth-of-type(2) {
+        margin-left: 10px;
+        color: #fff;
+        border-color: $system-default-blue;
+        background-color: $system-default-blue;
+      }
+    }
+  }
+}
+
+.background {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  background-color: #000;
+}
