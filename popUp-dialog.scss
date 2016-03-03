@@ -1,0 +1,218 @@
+@import "../../lib/scss/base";
+$alert-box-width: 500px;
+$alert-box-height: 350px;
+$system-default-blue: #2dc3e8;
+$fly-time: 0.5s;
+$outline-time: 0.8s;
+
+.alert-box-lineIn {
+  .alert-box {
+    animation: showSharp ($outline-time * 2) forwards;
+  }
+  .alert-svg-outline {
+    animation: lowIndex $outline-time forwards;
+  }
+  rect {
+    animation: showLine $outline-time forwards;
+  }
+  .alert-background {
+    animation: fadeIn .2s steps(4) forwards;
+  }
+  @at-root {
+    @keyframes lowIndex{
+  		0%, 99% {
+  			z-index: 1111;
+  		}
+  		100% {
+  			z-index: -1;
+  		}
+  	}
+  	@keyframes showLine{
+  		0% {
+  			stroke-dashoffset: 1680;
+  		}
+  		100% {
+  			stroke-dashoffset: 0;
+  		}
+  	}
+    @keyframes showSharp{
+      0%, 40%{
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+  }
+}
+.alert-box-lineOut {
+  .alert-box {
+    animation: hideSharp $outline-time forwards;
+  }
+  .alert-svg-outline {
+    z-index: 1111;
+  }
+  rect {
+    animation: hideLine $outline-time .2s forwards;
+  }
+  .alert-background {
+    animation: fadeOut 1.5s steps(4) forwards;
+  }
+  @at-root {
+  	@keyframes hideLine{
+  		0% {
+  			stroke-dashoffset: 0;
+  		}
+  		100% {
+  			stroke-dashoffset: 1680;
+  		}
+  	}
+    @keyframes hideSharp{
+      0%{
+        opacity: 1;
+      }
+      25%, 100% {
+        opacity: 0;
+      }
+    }
+  }
+}
+.alert-svg-outline {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 504px;
+    height: 312px;
+    z-index: 1111;
+    transform: translate(-50%, -50%);
+    rect {
+        fill: rgba(0,0,0,0);
+    		stroke: #fff;
+    		stroke-width: 2px;
+    		stroke-dasharray: 1680;
+    }
+}
+
+.alert-box-flyIn {
+  .alert-box {
+    animation: flyIn $fly-time ease-out;
+  }
+  .alert-background {
+    animation: fadeIn $fly-time steps(4) forwards;
+  }
+  @at-root {
+    @keyframes flyIn {
+      0% {
+        transform: translate(calc(-100vw - 50%), -50%);
+      }
+      65% {
+        transform: translate(-10%, -50%);
+      }
+      100% {
+        transform: translate(-50%, -50%);
+      }
+    }
+    @keyframes fadeIn {
+      0% {
+        opacity: 0
+      }
+      100% {
+        opacity: 0.5
+      }
+    }
+  }
+}
+.alert-box-flyOut {
+  .alert-box {
+    animation: flyOut $fly-time forwards;
+  }
+  .alert-background {
+    animation: fadeOut $fly-time steps(4) forwards;
+  }
+  @at-root {
+    @keyframes flyOut {
+      0% {
+        transform: translate(-50%, -50%);
+      }
+      50% {
+        transform: translate(-90%, -50%) scale(1.1);
+      }
+      100% {
+        transform: translate(calc(100vw + 50%), -50%);
+      }
+    }
+    @keyframes fadeOut {
+      0% {
+        opacity: 0.5
+      }
+      50%, 100% {
+        opacity: 0
+      }
+    }
+  }
+}
+
+.alert-box {
+  $text-color: lighten(#000, 30%);
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: $alert-box-width;
+  z-index: 1024;
+  background-color: #fff;
+  transform: translate(-50%, -50%);
+  box-shadow: 1px 1px 10px 1px rgba(0,0,0,.5);
+
+  .alert-title {
+    color: $text-color;
+    padding: 10px 15px;
+    font-size: 1.4rem;
+    cursor: move;
+    border-bottom: 3px solid $system-default-blue;
+  }
+  .alert-content {
+    height: calc(100% - 108px);
+    text-align: center;
+    font-size: 1.2rem;
+    color: $text-color;
+    border-bottom: 1px solid #ccc;
+
+    iframe {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .alert-option {
+    padding: 20px;
+    text-align: right;
+    font-size: 1.2rem;
+
+    button {
+      padding: 6px 30px;
+      color: #737b86;
+      cursor: pointer;
+      border: 1px solid #ccc;
+      background-color: #fff;
+      border-radius: 4px;
+      outline: 0;
+
+      &:nth-of-type(2) {
+        margin-left: 10px;
+        color: #fff;
+        border-color: $system-default-blue;
+        background-color: $system-default-blue;
+      }
+    }
+  }
+}
+
+.alert-background {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  background-color: #000;
+}
